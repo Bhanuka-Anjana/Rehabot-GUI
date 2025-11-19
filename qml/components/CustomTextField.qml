@@ -6,9 +6,11 @@ TextField {
     id: textField
 
     // Custom Properties
-    property color colorDefault: "#282c34"
-    property color colorOnFocus: "#242831"
-    property color colorMouseOver: "#2B2F38"
+    property color colorDefault: "#1d1d2b"
+    property color colorOnFocus: "#40405f"
+    property color colorMouseOver: "#33334c"
+    property color borderColor: "#33334c"
+    property int borderWidth: 3
 
     QtObject{
         id: internal
@@ -27,12 +29,14 @@ TextField {
     background: Rectangle {
         color: internal.dynamicColor
         radius: 10
+        border.color: borderColor
+        border.width: borderWidth
     }
 
     selectByMouse: true
     selectedTextColor: "#FFFFFF"
-    selectionColor: "#ff007f"
-    placeholderTextColor: "#81848c"
+    selectionColor: "#55aaff"
+    placeholderTextColor: "#55aaff"
 }
 
 /*##^##

@@ -8,14 +8,14 @@ import "components"
 import "pages"
 
 Window {
-    width: 1300
+    width: 1200
     height: 720
-    minimumWidth: 1300
-    minimumHeight: 850
+    minimumWidth: 1100
+    minimumHeight: 650
     visible: true
     color: "#00000000"
     id: mainWindow
-    title: qsTr("RehaBot v1.0")
+    title: qsTr("RehaBot")
 
     // Remove title bar
     flags: Qt.Window | Qt.FramelessWindowHint
@@ -33,6 +33,7 @@ Window {
     property string mode
 
 
+
     onIdPatientChanged : {
         // var myurl = 'https://rehabot.chamara.cc/patdetails?pat_id=' + idPatient;
         // internalMain.request(myurl, function (o) {
@@ -45,7 +46,7 @@ Window {
         //     label_patContact.btnValue = objPatient.contact_no;
         //     imagePatient.source = "https://rehabot.chamara.cc/storage/images/patient/" + objPatient.photo;
         // });
-        label_patName.btnValue = "Test Patient";
+        var objPatient = "Test Patient"
     }
 
     onIdDoctorChanged : {
@@ -57,7 +58,7 @@ Window {
         //     label_docNic.btnValue = objDoctor.nic;
         //     imageDoctor.source = "https://rehabot.chamara.cc/storage/images/doctor/" + objDoctor.photo;
         // });
-        label_docName.btnValue = "Test Doctor";
+        var objDoctor = "Test Doctor"
     }
 
     // Internal functions
@@ -224,13 +225,13 @@ Window {
             Image {
                 id: iconTopLogo
                 y: 5
-                width: 46
-                height: 40
+                width: 20
+                height: 20
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
-                source: "../images/2.svg"
-                sourceSize.height: 50
-                sourceSize.width: 50
+                source: "../images/images/logo_white_30x30.png"
+                sourceSize.height: 20
+                sourceSize.width: 20
                 anchors.leftMargin: 15
                 fillMode: Image.PreserveAspectFit
             }
@@ -431,17 +432,13 @@ Window {
                 colorDefault: "#33334c"
                 anchors.bottomMargin: 0
                 anchors.horizontalCenter: parent.horizontalCenter
-                onClicked: {
-                    console.log("VOICE COOMANDD");
-                    backend.btnStart();
-                }
 
                 Image {
                     id: image1
-                    x: 13
-                    y: -1
-                    width: 113
-                    height: 31
+                    x: 38
+                    y: 4
+                    width: 64
+                    height: 26
                     source: "../images/svg_images/mic_2.svg"
                     sourceSize.height: 30
                     sourceSize.width: 30
@@ -468,20 +465,6 @@ Window {
                 width: 200
                 height: 87
                 title: '<font color="white">Voice Command</font>'
-
-                Text {
-                    id: labelVoiceClass
-                    x: 64
-                    y: 25
-                    color: "#ffffff"
-                    // text: qsTr("Text")
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: 30
-                    horizontalAlignment: Text.AlignHCenter
-                    font.bold: true
-                    renderType: Text.QtRendering
-                    anchors.horizontalCenter: parent.horizontalCenter
-                }
             }
 
             Image {
@@ -519,7 +502,7 @@ Window {
                 id: stackView
                 anchors.fill: parent
                 clip: true
-                initialItem: Qt.resolvedUrl("pages/passive.qml")
+                initialItem: Qt.resolvedUrl("pages/mirror.qml")
             }
         }
 
@@ -573,7 +556,7 @@ Window {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: labelContaInfoR.bottom
-                anchors.bottom: groupBox.top
+                //                anchors.bottom: groupBox.top
                 anchors.bottomMargin: -372
                 LeftButton {
                     id: label_docName
@@ -608,237 +591,19 @@ Window {
                 }
             }
 
-            GroupBox {
-                id: groupBox
-                y: 255
-                height: 118
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.rightMargin: 6
-                anchors.leftMargin: 5
-                //                title: qsTr("Group Box")
-                title: "<font color=\"white\">Select Exercise</font>"
-
-                ComboBox {
-                    id: comboBox
-                    y: 13
-                    height: 28
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.leftMargin: 5
-                    anchors.rightMargin: 5
-                    background: Rectangle {
-                        color:"#8585ad"
-                        border.color: "#33334c"
-                        border.width: 2
-                    }
-                    textRole : "key"
-                    valueRole : "value"
-                    model : ListModel {
-                        id : modelExercise
-                    }
-                    Component.onCompleted : {
-                        // internalMain.request('https://rehabot.chamara.cc/exelist', function (o) {
-                        //     var arrExercise = eval('new Object(' + o.responseText + ')');
-                        //     for (var i = 0; i < arrExercise.length; i++) {
-                        //         modelExercise.append({value: arrExercise[i].id, key: arrExercise[i].name});
-                        //     }
-                        // });
-                        modelExercise.append({
-                            key:"Exe 1",
-                            value:"0"
-                        })
-                        modelExercise.append({
-                            key:"Exe 2",
-                            value:"1"
-                        })
-                    }
-                    onActivated : label_exercise.btnValue = comboBox.currentText
-
-
-
-                }
-                LeftButton {
-                    id: label_exercise
-                    height: 40
-                    text: "Preview"
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: comboBox.bottom
-                    anchors.rightMargin: 5
-                    anchors.leftMargin: 5
-                    anchors.topMargin: 5
-                    btnIconSource: "../images/svg_images/magnifier-1.svg"
-                    onClicked: {
-                        // internalMain.request('https://rehabot.chamara.cc/exedetails?exe_id=' + comboBox.currentValue, function (o) {
-                        //     var arrExerciseDetails = eval('new Object(' + o.responseText + ')');
-                        //     stackView.push("pages/exercise_preview_2.qml",{exerArray: arrExerciseDetails})
-                        // });
-                        var exeData=[
-                            {
-                                name:"Exercise 1 - Elbow",
-                                s_max:0,
-                                s_min:0,
-                                e_max:90,
-                                e_min:0
-                            },
-                            {
-                                name:"Exercise 2 - Sholder",
-                                s_max:90,
-                                s_min:0,
-                                e_max:0,
-                                e_min:0
-                            }
-                        ]
-                        var arrExerciseDetails=exeData[comboBox.currentValue]
-                        stackView.push("pages/exercise_preview_2.qml",{exerArray: arrExerciseDetails})
-
-                    }
-                }
-            }
-
-            GroupBox {
-                id: groupBox1
-                height: 163
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: groupBox.bottom
-                anchors.topMargin: 10
-                anchors.rightMargin: 5
-                anchors.leftMargin: 5
-                title: '<font color="white">Timer</font>'
-
-                CircularProgressBar {
-                    id: circularProgressBar
-                    x: 40
-                    width: 120
-                    anchors.right: parent.right
-                    anchors.top: parent.top
-                    anchors.bottom: parent.bottom
-                    value: 100
-                    anchors.rightMargin: 5
-                    anchors.bottomMargin: 5
-                    anchors.topMargin: 5
-                }
-
-                Rectangle {
-                    id : rectangle2
-                    y: 22
-                    width : 56
-                    height: 50
-                    border.color : "#313131"
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    anchors.verticalCenterOffset: -23
-                    anchors.leftMargin: 7
-                    gradient : Gradient {
-                        GradientStop {
-                            position : 0
-                            color : "#00000000"
-                        }
-
-                        GradientStop {
-                            position : 0.04777
-                            color : "#00000000"
-                        }
-
-                        GradientStop {
-                            position : 0.98726
-                            color : "#ffffff"
-                        }
-
-                    }
-                }
-
-                Rectangle {
-                    id : rectangle3
-                    y: 61
-                    width : 56
-                    height : 50
-                    border.color : "#313131"
-                    anchors.left: parent.left
-                    anchors.leftMargin: 7
-                    rotation : -180
-                    gradient : Gradient {
-                        GradientStop {
-                            position : 0
-                            color : "#00000000"
-                        }
-
-                        GradientStop {
-                            position : 0.04777
-                            color : "#00000000"
-                        }
-
-                        GradientStop {
-                            position : 0.98726
-                            color : "#ffffff"
-                        }
-                    }
-                }
-
-                Tumbler {
-                    id: tumbler
-                    y: 32
-                    width: 60
-                    height: 76
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    anchors.leftMargin: 5
-                    font.bold: true
-                    font.pointSize: 15
-                    wheelEnabled: false
-                    visibleItemCount: 3
-                    model: 60
-                    onCurrentIndexChanged : {
-                        console.log(tumbler.currentIndex);
-                    }
-                }
-            }
-
             CustomAppButton {
                 id: customAppButton
                 width: 90
                 height: 90
                 text: "Start"
                 anchors.left: parent.left
-                anchors.top: groupBox1.bottom
+                anchors.top: columnMenusRR.bottom
                 setIcon: "../images/svg_images/play.svg"
-                anchors.topMargin: 10
+                anchors.topMargin: 20
                 anchors.leftMargin: 20
                 checkable: false
                 font.bold: true
                 font.pointSize: 15
-                onClicked: {
-                    console.log("Click Start Button");
-
-                    // internalMain.request('https://rehabot.chamara.cc/exedetails?exe_id=' + comboBox.currentValue, function (o) {
-                    //     var arrExerciseDetails = eval('new Object(' + o.responseText + ')');
-                    //     console.log(comboBox.currentValue)
-                    //     backend.btnStart2(arrExerciseDetails.s_max,arrExerciseDetails.s_min,arrExerciseDetails.e_max,arrExerciseDetails.e_min);
-                    // });
-                    var exeData=[
-                            {
-                                name:"Exercise 1 - Elbow",
-                                s_max:0,
-                                s_min:0,
-                                e_max:90,
-                                e_min:0
-                            },
-                            {
-                                name:"Exercise 2 - Sholder",
-                                s_max:90,
-                                s_min:0,
-                                e_max:0,
-                                e_min:0
-                            }
-                        ]
-                    var arrExerciseDetails=exeData[comboBox.currentValue]
-                    console.log(comboBox.currentValue)
-                    backend.btnStart2(arrExerciseDetails.s_max,arrExerciseDetails.s_min,arrExerciseDetails.e_max,arrExerciseDetails.e_min);
-
-
-                }
             }
 
             CustomAppButton {
@@ -847,16 +612,12 @@ Window {
                 height: 90
                 text: "Stop"
                 anchors.left: customAppButton.right
-                anchors.top: groupBox1.bottom
+                anchors.top: columnMenusRR.bottom
                 setIcon: "../images/svg_images/stop.svg"
-                anchors.topMargin: 10
+                anchors.topMargin: 20
                 anchors.leftMargin: 20
                 font.bold: true
                 font.pointSize: 15
-                onClicked: {
-                    console.log("Click Stop Button");
-                    backend.btnStop()
-                }
             }
 
 
@@ -991,70 +752,12 @@ Window {
             }
         }
     }
-
-    Connections {
-            target : backend
-
-            // onError:console.log("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW")
-
-            function onPrintTime(name) {
-                 console.log(name)
-                // imgShoulder.rotation = -parseInt(name)
-                // imgElbow.rotation = 2 * parseInt(name)
-                // dialB.value = parseInt(name)
-            }
-
-            function onMirrorArm(val1, val2) { //                console.log(val1+"=="+val2);
-                dialA.value = parseInt(val1);
-                dialB.value = parseInt(val2);
-            }
-
-            // function onPassiveArm(val1, val2) {
-            //     console.log(val1)
-            //     // console.log(stackView.currentItem)
-            //     stackView.push('pages/passive.qml', {dialAmy: 50})
-            //     // stackView.find(function(item, index) {
-            //     //     // console.log(item)
-            //     //     stackView.push(item, {dialAmy: 50})
-            //     //     // return item.id
-            //     // });
-                
-            //     // stackView.currentItem.dialA.value = parseInt(val1);
-            //     // stackView.currentItem.dialB.value = parseInt(val2);
-            // }
-
-            function onVoiceFrontend(a,b){
-                labelVoiceClass.text=a;
-                // labelVoiceProb.text=b;
-
-                console.log(a)
-
-                if(a==='one'){
-                    comboBox.currentIndex=0;
-                    label2.text = comboBox.currentText
-                }else if (a==='two'){
-                    comboBox.currentIndex=1;
-                    label2.text = comboBox.currentText
-                }else if (a==='three'){
-                    comboBox.currentIndex=2;
-                    label2.text = comboBox.currentText
-                }else if (a==='start'){
-                    console.log("START Voice")
-                    customAppButton.clicked()
-                }else if (a==='stop'){
-                    console.log("STOP Voice")
-                    customAppButton1.clicked()
-                }
-
-            }
-        }
-
 }
 
 
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.33}D{i:66}
+    D{i:0;formeditorZoom:2}D{i:47}
 }
 ##^##*/

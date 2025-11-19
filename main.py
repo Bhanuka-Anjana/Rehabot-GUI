@@ -1,85 +1,20 @@
-# This Python file uses the following encoding: utf-8
-import sys
 import os
-import datetime
+import sys
 
-from PySide2.QtGui import QGuiApplication
+from PySide2.QtGui import QGuiApplication, QIcon
 from PySide2.QtQml import QQmlApplicationEngine
 
-from PySide2.QtCore import QObject, Slot, Signal, QTimer, QUrl
+import voicecomand.record.recording as recording
+import voicecomand.testing.model as model_functions
+import voicecomand.testing.prediction as predictions
+import voicecomand.training.arguments as arguments
+from mainWindow import MainWindow
 
-import serial
+args = arguments.set_default_args()
 
-#ser = serial.Serial('COM12', 9600) #/dev/ttyACM0
-#ser.close()
-
-
-class MainWindow(QObject):
-    def __init__(self):
-        QObject.__init__(self)
-
-        self.timerTest = QTimer()
-        self.timerTest.timeout.connect(self.funStart)
-
-        # QTimer - Run Timer
-        self.timer = QTimer()
-
-        self.timer.timeout.connect(lambda: self.setTime())
-        self.timer.start(1000)
-
-    # Signal Set Name
-    # setName = Signal(str)
-    # Signal Set Data
-    printTime = Signal(str)
-    mirrorArm = Signal(str,str)
-
-
-
-
-    # Set Timer Function
-    def setTime(self):
-        now = datetime.datetime.now()
-        formatDate = now.strftime("Now is %H:%M:%S %p of %Y/%m/%d")
-        sec=now.strftime("%S")
-#        print(int(sec))
-        self.printTime.emit(sec)
-
-    # Function Set Name To Label
-    @Slot()
-    def btnStart(self):
-        nowNew = datetime.datetime.now()
-        formatDateNew = nowNew.strftime("Now is %H:%M:%S %p of %Y/%m/%d")
-        print("Start - ",formatDateNew)
-
-        self.timerTest.start(50)
-
-    def funStart(self):
-#        print("Loop Start")
-        if(ser.isOpen() == False):
-            ser.open()
-        else:
-            x = str(ser.readline())
-            x = x.lstrip("b")
-            x = x.strip("'")
-            x = x.rstrip("\\r\\n")
-            y = x.split(",")
-            self.mirrorArm.emit(y[0],y[1])
-#           print(y[0],y[1])
-
-    def funStop(self):
-        print("Loop Stop")
-
-
-
-
-    @Slot()
-    def btnStop(self):
-        ser.close();
-        nowNew = datetime.datetime.now()
-        formatDateNew = nowNew.strftime("Now is %H:%M:%S %p of %Y/%m/%d")
-        print("Stop - ",formatDateNew)
-        self.timerTest.stop()
-
+# VOICE COMMAND
+model_functions.load_model("model/new.ckpt")
+print("Model Loaded")
 
 
 if __name__ == "__main__":
@@ -90,13 +25,15 @@ if __name__ == "__main__":
     main = MainWindow()
     engine.rootContext().setContextProperty("backend", main)
 
+    # Set App Extra Info
+    app.setOrganizationName("Chamara Herath")
+    app.setOrganizationDomain("RehaBot v1.0")
 
-#    engine.load(os.path.join(os.path.dirname(__file__), "qml/test3d.qml"))
-#    engine.load(os.path.join(os.path.dirname(__file__), "qml/testComp.qml"))
-#    engine.load(os.path.join(os.path.dirname(__file__), "qml/passive.qml"))
-#    engine.load(os.path.join(os.path.dirname(__file__), "qml/prevew_exe.qml"))
+    # Set Icon
+    app.setWindowIcon(QIcon("images/icon.ico"))
 
-    engine.load(os.path.join(os.path.dirname(__file__), "qml/splashScreen.qml"))
+    # Load Initial Window
+    engine.load(os.path.join(os.path.dirname(__file__), "qml/welcomeScreen.qml"))
 
     if not engine.rootObjects():
         sys.exit(-1)

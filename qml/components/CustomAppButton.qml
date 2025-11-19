@@ -1,0 +1,68 @@
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtGraphicalEffects 1.15
+
+Button {
+    id: button
+
+    // Custom Properties
+    property color colorDefault: "#33334c"
+    property color colorMouseOver: "#40405f"
+    property color colorPressed: "#55aaff"
+    property url setIcon: "../../images/svg_images/pix_icon.svg"
+    implicitWidth: 120
+    implicitHeight: 95
+
+    QtObject{
+        id: internal
+
+        property var dynamicColor: if(button.down){
+                                       button.down ? colorPressed : colorDefault
+                                   }else{
+                                       button.hovered ? colorMouseOver : colorDefault
+                                   }
+    }
+
+    text: qsTr("Button")
+    font.family: "Segoe UI"
+    contentItem: Item{
+        id: itemBtn
+        Text {
+            id: name
+            text: button.text
+            anchors.left: parent.left
+            anchors.bottom: parent.bottom
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.leftMargin: 2
+            anchors.bottomMargin: 5
+            font: button.font
+            color: "#ffffff"
+        }
+        Image {
+            id: icon
+            height: 50
+            anchors.left: parent.left
+            anchors.top: parent.top
+            source: setIcon
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.leftMargin: 2
+            anchors.topMargin: 2
+            sourceSize.height: 50
+            sourceSize.width: 50
+            fillMode: Image.PreserveAspectFit
+            antialiasing: false
+        }
+    }
+
+    background: Rectangle{
+        color: internal.dynamicColor
+        radius: 10
+    }
+}
+/*##^##
+Designer {
+    D{i:0;formeditorZoom:4;height:95;width:120}
+}
+##^##*/
