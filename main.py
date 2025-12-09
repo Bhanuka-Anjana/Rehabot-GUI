@@ -1,8 +1,8 @@
 import os
 import sys
 
-from PySide2.QtGui import QGuiApplication, QIcon
-from PySide2.QtQml import QQmlApplicationEngine
+from PySide6.QtGui import QGuiApplication, QIcon
+from PySide6.QtQml import QQmlApplicationEngine
 
 import voicecomand.record.recording as recording
 import voicecomand.testing.model as model_functions
@@ -37,4 +37,4 @@ if __name__ == "__main__":
 
     if not engine.rootObjects():
         sys.exit(-1)
-    sys.exit(app.exec_())
+    sys.exit(app.exec())

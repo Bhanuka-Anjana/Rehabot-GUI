@@ -3,9 +3,9 @@ import time
 
 import serial
 import sounddevice as sd
-from PySide2.QtCore import QObject, QTimer, QUrl, Signal, Slot
-from PySide2.QtGui import QGuiApplication
-from PySide2.QtQml import QQmlApplicationEngine
+from PySide6.QtCore import QObject, QTimer, QUrl, Signal, Slot
+from PySide6.QtGui import QGuiApplication
+from PySide6.QtQml import QQmlApplicationEngine
 from scipy.io.wavfile import write
 
 import voicecomand.record.recording as recording
@@ -13,13 +13,32 @@ import voicecomand.testing.model as model_functions
 import voicecomand.testing.prediction as predictions
 import voicecomand.training.arguments as arguments
 
+PORT = "COM5"
+BAUD = 9600
+
 # ==================== Serial Communication =========================
-ser = serial.Serial('COM15', 9600,timeout=1)
-if ser.isOpen():
-    ser.close()
-# Comment above 3 lines (17,18,19) for start app without connect to serial, to test GUI
-# ser = None
-# ===================================================================
+# try:
+#     ser = serial.Serial('COM5', 9600,timeout=1)
+#     # Keep the port open
+# except Exception as e:
+#     print(f"Serial Error: {e}. Running without serial.")
+#     ser = None
+# # Comment above 3 lines (17,18,19) for start app without connect to serial, to test GUI
+# # ser = None
+
+def open_serial():
+    ser = serial.Serial(PORT, BAUD, timeout=1)
+    # Optional: mimic Serial Monitor DTR/RTS behaviour
+    ser.setDTR(False)
+    ser.setRTS(False)
+    time.sleep(0.1)
+    ser.setDTR(True)
+    ser.setRTS(True)
+
+    # Give Arduino time to reset
+    time.sleep(2)
+    return ser
+# # ===================================================================
 
 fs = 16000  # Sample rate
 seconds = 2  # Duration of recording
@@ -28,6 +47,7 @@ seconds = 2  # Duration of recording
 class MainWindow(QObject):
     def __init__(self):
         # self.timer1=QTimer()
+        self.ser = open_serial()
         QObject.__init__(self)
         pass
 
@@ -44,12 +64,16 @@ class MainWindow(QObject):
         self.printTime.emit(sec)
 
     def sendSerial(self, msg):
-        if ser.isOpen():
-            ser.close()
-        ser.open()
-        ser.isOpen()
-        ser.write((msg + "\r").encode())
-        ser.close()
+        if self.ser is None:
+            print(f"Serial not connected. Message ignored: {msg}")
+            return
+        try:
+            if not self.ser.isOpen():
+                self.ser.open()
+            self.ser.write((msg + "\r\n").encode())
+            print(f"Sent: {msg}")
+        except Exception as e:
+            print(f"Serial Write Error: {e}")
 
     @Slot()
     def btnStart(self):
@@ -78,8 +102,8 @@ class MainWindow(QObject):
         print("Shoulder " + s_max + " " + s_min)
         print("Elbow " + e_max + " " + e_min)
         self.isStop = 0
-        self.sendSerial("Shoulder " + s_max + " " + s_min)
-        self.sendSerial("Elbow " + e_max + " " + e_min)
+        # self.sendSerial("Shoulder " + s_max + " " + s_min)
+        # self.sendSerial("Elbow " + e_max + " " + e_min)
         self.sendSerial("Start")
         self.startReadPassive()
 
@@ -89,8 +113,8 @@ class MainWindow(QObject):
         # self.timer1.stop()
         self.sendSerial("Stop")
 
-        ser.open()
-        ser.isOpen()
+        # self.ser.open()
+        # self.ser.isOpen()
         # self.timer1.start(1)
 
         # self.timer2=QTimer()
@@ -109,33 +133,39 @@ class MainWindow(QObject):
     def startReadPassive(self):
         self.timer1 = QTimer()
         self.timer1.timeout.connect(lambda: self.readPassive())
-        ser.open()
-        ser.isOpen()
-        self.timer1.start(1)
+        if self.ser and not self.ser.isOpen():
+            self.ser.open()
+        self.timer1.start(20)
 
     def readPassive(self):
-        # if ser.in_waiting:
-        #     ser.close()
-        #     self.timer1.stop()
-        # pass
-        # read_serial = ser.readline()
-        # read_val=read_serial.decode('utf-8').strip()
-        # angles=read_val.split(",")
-        # print(angles)
-        # self.passiveArm.emit(angles[1],angles[0])
         try:
-            read_serial = ser.readline()
-            read_val = read_serial.decode("utf-8").strip()
-            angles = read_val.split(",")
-            print(angles)
-            self.passiveArm.emit(angles[1], angles[0])
+            if self.ser and self.ser.isOpen():
+                if self.ser.in_waiting > 0:
+                    read_serial = self.ser.readline()
+                    try:
+                        read_val = read_serial.decode("utf-8").strip()
+                    except UnicodeDecodeError:
+                        return
+
+                    if not read_val:
+                        return
+
+                    angles = read_val.split(",")
+                    # print(angles)
+                    
+                    if len(angles) >= 2:
+                        self.passiveArm.emit(angles[1], angles[0])
+            elif self.isStop == 1:
+                self.timer1.stop()
+
         except IndexError as error:
             if self.isStop == 1:
                 self.timer1.stop()
-                ser.close()
+                if  self.ser and self.ser.isOpen():
+                    self.ser.close()
             print(error)
-        except:
-            print("An exception occurred")
+        except Exception as e:
+            print(f"An exception occurred: {e}")
 
     def checkPassiveStop(self):
         self.isStop = self.isStop + 1
@@ -144,5 +174,5 @@ class MainWindow(QObject):
             self.timer1.stop()
             self.timer2.stop()
             print("TIMER 1 and 2 Stopped")
-            if ser.isOpen():
-                ser.close()
+            if self.ser.isOpen():
+                self.ser.close()

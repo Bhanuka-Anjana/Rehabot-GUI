@@ -58,16 +58,124 @@ Item {
             id: dialA
             x: 8
             y: 8
+            width: 120
+            height: 120
             stepSize : 1
             to : 90
+
+            background: Rectangle {
+                x: dialA.width / 2 - width / 2
+                y: dialA.height / 2 - height / 2
+                width: Math.max(64, Math.min(dialA.width, dialA.height))
+                height: width
+                color: "transparent"
+                radius: width / 2
+                border.color: "#33334c"
+                border.width: 4
+                opacity: dialA.enabled ? 1 : 0.3
+            }
+
+            handle: Rectangle {
+                id: handleItemA
+                x: dialA.background.x + dialA.background.width / 2 - width / 2
+                y: dialA.background.y + dialA.background.height / 2 - height / 2
+                width: 16
+                height: 16
+                color: "#55aaff"
+                radius: 8
+                antialiasing: true
+                opacity: dialA.enabled ? 1 : 0.3
+                transform: [
+                    Translate {
+                        y: -Math.min(dialA.background.width, dialA.background.height) * 0.4 + handleItemA.height / 2
+                    },
+                    Rotation {
+                        angle: dialA.angle
+                        origin.x: handleItemA.width / 2
+                        origin.y: handleItemA.height / 2
+                    }
+                ]
+            }
+
+            Label {
+                anchors.centerIn: parent
+                text: dialA.value.toFixed(0) + "°"
+                color: "#33334c"
+                font.pixelSize: 24
+                font.bold: true
+            }
+
+            Label {
+                anchors.top: parent.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.topMargin: 5
+                text: "Elbow"
+                color: "#33334c"
+                font.pixelSize: 18
+                font.bold: true
+            }
         }
 
         Dial {
             id: dialB
             x: 8
             y: 206
+            width: 120
+            height: 120
             stepSize : 1
             to : 90
+
+            background: Rectangle {
+                x: dialB.width / 2 - width / 2
+                y: dialB.height / 2 - height / 2
+                width: Math.max(64, Math.min(dialB.width, dialB.height))
+                height: width
+                color: "transparent"
+                radius: width / 2
+                border.color: "#33334c"
+                border.width: 4
+                opacity: dialB.enabled ? 1 : 0.3
+            }
+
+            handle: Rectangle {
+                id: handleItemB
+                x: dialB.background.x + dialB.background.width / 2 - width / 2
+                y: dialB.background.y + dialB.background.height / 2 - height / 2
+                width: 16
+                height: 16
+                color: "#55aaff"
+                radius: 8
+                antialiasing: true
+                opacity: dialB.enabled ? 1 : 0.3
+                transform: [
+                    Translate {
+                        y: -Math.min(dialB.background.width, dialB.background.height) * 0.4 + handleItemB.height / 2
+                    },
+                    Rotation {
+                        angle: dialB.angle
+                        origin.x: handleItemB.width / 2
+                        origin.y: handleItemB.height / 2
+                    }
+                ]
+            }
+
+            Label {
+                anchors.centerIn: parent
+                text: dialB.value.toFixed(0) + "°"
+                color: "#33334c"
+                font.pixelSize: 24
+                font.bold: true
+            }
+
+            Label {
+                anchors.top: parent.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.topMargin: 5
+                text: "Shoulder"
+                color: "#33334c"
+                font.pixelSize: 18
+                font.bold: true
+            }
         }
 
         CustomButton {
