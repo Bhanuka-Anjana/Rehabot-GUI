@@ -5,7 +5,7 @@ import Qt5Compat.GraphicalEffects
 Button{
     id: btnTopBar
     // CUSTOM PROPERTIES
-    property url btnIconSource: "../../images/svg_images/minimize_icon.svg"
+    property url btnIconSource: "../../images/minimize_icon.svg"
     property color btnColorDefault: "#00000000"
     property color btnColorMouseOver: "#40265d"
     property color btnColorClicked: "#00a1f1"

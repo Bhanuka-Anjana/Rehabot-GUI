@@ -56,7 +56,7 @@ Item {
                         visible: false
                         anchors.left: parent.left
                         anchors.top: parent.top
-                        source: "../../images/svg_images/cart_icon.svg"
+                        source: "../../images/cart_icon.svg"
                         fillMode: Image.PreserveAspectFit
                         antialiasing: false
                     }

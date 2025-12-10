@@ -71,7 +71,7 @@ Item {
             height: 100
             opacity: 0
             anchors.verticalCenter: parent.verticalCenter
-            source: "../../images/images/logo_white_100x100.png"
+            source: "../../images/logo_white_100x100.png"
             anchors.verticalCenterOffset: -80
             anchors.horizontalCenter: parent.horizontalCenter
             fillMode: Image.PreserveAspectFit

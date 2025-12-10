@@ -36,7 +36,7 @@ Item {
             y : 136
             width : 206
             height : 232
-            source : "../../images/virtual_arm/shoulder.jpg"
+            source : "../../images/shoulder.jpg"
             transformOrigin : Item.Top
             rotation : dialB.value
             Image {
@@ -45,7 +45,7 @@ Item {
                 y : 165
                 width : 281
                 height : 284
-                source : "../../images/virtual_arm/elbow.png"
+                source : "../../images/elbow.png"
                 transformOrigin : Item.Top
                 rotation : dialA.value
                 fillMode : Image.PreserveAspectFit
@@ -293,7 +293,13 @@ Item {
 
         function onPassiveArm(val1, val2) {
             // console.log(val1)
-            dialA.value = parseInt(val1);
+            // Map 0-90 to 15-90 for Elbow (val1)
+            var inputElbow = parseInt(val1);
+            var mappedElbow = (inputElbow / 90.0) * 75.0 + 15.0;
+            if (mappedElbow < 15) {
+                mappedElbow = 15;
+            }
+            dialA.value = mappedElbow;
             dialB.value = parseInt(val2);
         }
 

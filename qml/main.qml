@@ -100,7 +100,7 @@ Window {
                 resizeApp.visible = false
                 bg.radius = 0
                 bg.border.width = 0
-                btnMaximizeRestore.btnIconSource = "../images/svg_images/restore_icon.svg"
+                btnMaximizeRestore.btnIconSource = "../images/restore_icon.svg"
             }
             else{
                 mainWindow.showNormal()
@@ -109,7 +109,7 @@ Window {
                 // Resize visibility
                 internalMain.resetResizeBorders()
                 bg.border.width = 3
-                btnMaximizeRestore.btnIconSource = "../images/svg_images/maximize_icon.svg"
+                btnMaximizeRestore.btnIconSource = "../images/maximize_icon.svg"
             }
         }
 
@@ -121,7 +121,7 @@ Window {
                 // Resize visibility
                 internalMain.resetResizeBorders()
                 bg.border.width = 3
-                btnMaximizeRestore.btnIconSource = "../images/svg_images/maximize_icon.svg"
+                btnMaximizeRestore.btnIconSource = "../images/maximize_icon.svg"
             }
         }
 
@@ -132,7 +132,7 @@ Window {
             // Resize visibility
             internalMain.resetResizeBorders()
             bg.border.width = 3
-            btnMaximizeRestore.btnIconSource = "../images/svg_images/maximize_icon.svg"
+            btnMaximizeRestore.btnIconSource = "../images/maximize_icon.svg"
         }
     }
 
@@ -158,7 +158,7 @@ Window {
             btnColorClicked: "#55aaff"
             btnColorMouseOver: "#ff007f"
             anchors.topMargin: 8
-            btnIconSource: "../images/svg_images/close_icon.svg"
+            btnIconSource: "../images/close_icon.svg"
             CustomToolTip {
                 text: "Sair"
             }
@@ -175,7 +175,7 @@ Window {
             anchors.topMargin: 8
             btnColorMouseOver: "#40405f"
             btnColorClicked: "#55aaff"
-            btnIconSource: "../images/svg_images/maximize_icon.svg"
+            btnIconSource: "../images/maximize_icon.svg"
             CustomToolTip {
                 text: "Maximizar"
             }
@@ -193,7 +193,7 @@ Window {
             btnColorClicked: "#55aaff"
             btnColorMouseOver: "#40405f"
             anchors.topMargin: 8
-            btnIconSource: "../images/svg_images/minimize_icon.svg"
+            btnIconSource: "../images/minimize_icon.svg"
             CustomToolTip {
                 text: "Minimizar"
             }
@@ -267,7 +267,7 @@ Window {
         //                CustomToolTip {
         //                    text: "Página inicial"
         //                }
-        //                btnIconSource: "../images/svg_images/home_icon.svg"
+        //                btnIconSource: "../images/home_icon.svg"
         //                onClicked: {
         //                    stackView.push(Qt.resolvedUrl("pages/homePage.qml"))
         //                    actualPage.showValue = isValueVisible
@@ -282,14 +282,14 @@ Window {
         //                    id: settingsTooltip
         //                    text: "Configurações da conta"
         //                }
-        //                btnIconSource: "../images/svg_images/settings_icon.svg"
+        //                btnIconSource: "../images/settings_icon.svg"
         //                // onClicked: {
         //                //     animationMenu.running = true
         //                //     if(leftMenu.width == 0){
-        //                //         btnSettings.btnIconSource = "../images/svg_images/close_icon_2.svg"
+        //                //         btnSettings.btnIconSource = "../images/close_icon_2.svg"
         //                //         settingsTooltip.text = "Ocultar configurações"
         //                //     } else {
-        //                //         btnSettings.btnIconSource = "../images/svg_images/settings_icon.svg"
+        //                //         btnSettings.btnIconSource = "../images/settings_icon.svg"
         //                //         settingsTooltip.text = "Configurações da conta"
         //                //     }
         //                // }
@@ -302,20 +302,20 @@ Window {
         //                CustomToolTip {
         //                    text: "Ocultar valores da conta"
         //                }
-        //                btnIconSource: "../images/svg_images/eye_open_icon.svg"
+        //                btnIconSource: "../images/eye_open_icon.svg"
         //                onClicked: {
         //                    if(isValueVisible == true){
         //                        isValueVisible = false
         //                        if(typeof actualPage.showValue !== 'undefined'){
         //                            actualPage.showValue = isValueVisible
         //                        }
-        //                        btnShowHide.btnIconSource = "../images/svg_images/eye_close_icon.svg"
+        //                        btnShowHide.btnIconSource = "../images/eye_close_icon.svg"
         //                    } else{
         //                        isValueVisible = true
         //                        if(typeof actualPage.showValue !== 'undefined'){
         //                            actualPage.showValue = isValueVisible
         //                        }
-        //                        btnShowHide.btnIconSource = "../images/svg_images/eye_open_icon.svg"
+        //                        btnShowHide.btnIconSource = "../images/eye_open_icon.svg"
         //                    }
         //                }
         //            }
@@ -349,7 +349,7 @@ Window {
                 id: imagePatient
                 width: 110
                 height: 110
-                source: "../images/svg_images/qr-code.svg"
+                source: "../images/qr-code.svg"
                 fillMode: Image.PreserveAspectFit
                 anchors.horizontalCenter: parent.horizontalCenter
                 sourceSize.width: 110
@@ -382,7 +382,7 @@ Window {
                 LeftButton {
                     id: label_patName
                     text: "Name"
-                    btnIconSource: "../images/svg_images/user_icon.svg"
+                    btnIconSource: "../images/user_icon.svg"
                     btnValue: "Chamara Herath"
                     // onClicked: stackView.push("pages/pageNoInternet.qml")
                 }
@@ -390,7 +390,7 @@ Window {
                 LeftButton {
                     id: label_patNic
                     text: "NIC"
-                    btnIconSource: "../images/svg_images/id_card1.svg"
+                    btnIconSource: "../images/id_card1.svg"
                     // onClicked: stackView.push("pages/pageNoInternet.qml")
                     btnValue: "960000000V"
                 }
@@ -399,7 +399,7 @@ Window {
                     id: label_patDob
                     text: "DOB"
                     btnValue: "1996-02-01"
-                    btnIconSource: "../images/svg_images/calendar2.svg"
+                    btnIconSource: "../images/calendar2.svg"
                     // onClicked: stackView.push("pages/pageNoInternet.qml")
                 }
 
@@ -407,7 +407,7 @@ Window {
                     id: label_patAddress
                     text: "Address"
                     btnValue: "Kegalle, Sri Lanka"
-                    btnIconSource: "../images/svg_images/home_icon.svg"
+                    btnIconSource: "../images/home_icon.svg"
                     // onClicked: stackView.push("pages/pageNoInternet.qml")
                 }
 
@@ -415,7 +415,7 @@ Window {
                     id: label_patContact
                     text: "Contact"
                     btnValue: "+9470 0000 000"
-                    btnIconSource: "../images/svg_images/phone-symbol-2.svg"
+                    btnIconSource: "../images/phone-symbol-2.svg"
                     // onClicked: stackView.push("pages/pageNoInternet.qml")
                 }
                 anchors.topMargin: 10
@@ -442,7 +442,7 @@ Window {
                     y: -1
                     width: 113
                     height: 31
-                    source: "../images/svg_images/mic_2.svg"
+                    source: "../images/mic_2.svg"
                     sourceSize.height: 30
                     sourceSize.width: 30
                     fillMode: Image.PreserveAspectFit
@@ -544,7 +544,7 @@ Window {
                 id: imageDoctor
                 width: 110
                 height: 110
-                source: "../images/svg_images/qr-code.svg"
+                source: "../images/qr-code.svg"
                 fillMode: Image.PreserveAspectFit
                 anchors.horizontalCenter: parent.horizontalCenter
                 sourceSize.width: 110
@@ -578,7 +578,7 @@ Window {
                 LeftButton {
                     id: label_docName
                     text: "Name"
-                    btnIconSource: "../images/svg_images/user_icon.svg"
+                    btnIconSource: "../images/user_icon.svg"
                     btnValue: "Chamara Herath"
                     // onClicked: stackView.push("pages/pageNoInternet.qml")
                 }
@@ -586,7 +586,7 @@ Window {
                 LeftButton {
                     id: label_docNic
                     text: "NIC"
-                    btnIconSource: "../images/svg_images/id_card1.svg"
+                    btnIconSource: "../images/id_card1.svg"
                     // onClicked: stackView.push("pages/pageNoInternet.qml")
                     btnValue: "960000000V"
                 }
@@ -668,7 +668,7 @@ Window {
                     anchors.rightMargin: 5
                     anchors.leftMargin: 5
                     anchors.topMargin: 5
-                    btnIconSource: "../images/svg_images/magnifier-1.svg"
+                    btnIconSource: "../images/magnifier-1.svg"
                     onClicked: {
                         // internalMain.request('https://rehabot.chamara.cc/exedetails?exe_id=' + comboBox.currentValue, function (o) {
                         //     var arrExerciseDetails = eval('new Object(' + o.responseText + ')');
@@ -803,7 +803,7 @@ Window {
                 text: "Start"
                 anchors.left: parent.left
                 anchors.top: groupBox1.bottom
-                setIcon: "../images/svg_images/play.svg"
+                setIcon: "../images/play.svg"
                 anchors.topMargin: 10
                 anchors.leftMargin: 20
                 checkable: false
@@ -837,7 +837,10 @@ Window {
                     console.log(comboBox.currentValue)
                     backend.btnStart2(arrExerciseDetails.s_max,arrExerciseDetails.s_min,arrExerciseDetails.e_max,arrExerciseDetails.e_min);
 
-
+                    // Start countdown timer
+                    tumbler.currentIndex = 59
+                    circularProgressBar.value = 100
+                    countdownTimer.start()
                 }
             }
 
@@ -848,7 +851,7 @@ Window {
                 text: "Stop"
                 anchors.left: customAppButton.right
                 anchors.top: groupBox1.bottom
-                setIcon: "../images/svg_images/stop.svg"
+                setIcon: "../images/stop.svg"
                 anchors.topMargin: 10
                 anchors.leftMargin: 20
                 font.bold: true
@@ -857,6 +860,7 @@ Window {
                     console.log("Click Stop Button");
                     backend.btnStop()
                     stackView.pop(null)
+                    countdownTimer.stop()
                 }
             }
 
@@ -865,6 +869,22 @@ Window {
         }
 
 
+    }
+
+    Timer {
+        id: countdownTimer
+        interval: 2000
+        repeat: true
+        onTriggered: {
+            if (tumbler.currentIndex > 0) {
+                tumbler.currentIndex = tumbler.currentIndex - 1
+                circularProgressBar.value = (tumbler.currentIndex / 59) * 100
+            } else {
+                countdownTimer.stop()
+                // Optionally auto-stop the exercise
+                customAppButton1.clicked()
+            }
+        }
     }
 
     DropShadow{

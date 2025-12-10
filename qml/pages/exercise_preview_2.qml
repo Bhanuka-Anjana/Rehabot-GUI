@@ -39,7 +39,7 @@ Item {
             y : 136
             width : 206
             height : 232
-            source : "../../images/virtual_arm/shoulder.jpg"
+            source : "../../images/shoulder.jpg"
             transformOrigin : Item.Top
 //            rotation : parseInt(s_MAX.text)
             PropertyAnimation {
@@ -61,7 +61,7 @@ Item {
                 y : 165
                 width : 281
                 height : 284
-                source : "../../images/virtual_arm/elbow.png"
+                source : "../../images/elbow.png"
                 transformOrigin : Item.Top
 //                rotation : dialA.value
                 fillMode : Image.PreserveAspectFit

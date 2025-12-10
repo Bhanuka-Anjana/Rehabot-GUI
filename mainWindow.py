@@ -110,12 +110,12 @@ class MainWindow(QObject):
             print("Call 01")
             self.sendSerial("Shoulder 90 0")
             time.sleep(0.5)
-            self.sendSerial("Elbow 5 10")
+            self.sendSerial("Elbow 20 15")
         elif int(e_max) > 0 or int(e_min) > 0:
             print("Call 02")
             self.sendSerial("Shoulder 0 0")
             time.sleep(0.5)
-            self.sendSerial("Elbow 90 0")
+            self.sendSerial("Elbow 90 15")
         
         time.sleep(1)  # Add a delay of 1 second before starting the robot
 
@@ -126,6 +126,8 @@ class MainWindow(QObject):
     def btnStop(self):
         print("STOP ROBOT")
         # self.timer1.stop()
+        self.sendSerial("Stop")
+        time.sleep(0.5)
         self.sendSerial("Stop")
 
         # self.ser.open()
@@ -143,6 +145,7 @@ class MainWindow(QObject):
         print("Wear Mode ROBOT")
         print("PID_S " + shoulder, "PID_E " + elbow)
         self.sendSerial("PID_S " + shoulder)
+        time.sleep(0.5)
         self.sendSerial("PID_E " + elbow)
 
     def startReadPassive(self):
@@ -169,7 +172,13 @@ class MainWindow(QObject):
                     # print(angles)
                     
                     if len(angles) >= 2:
-                        self.passiveArm.emit(angles[1], angles[0])
+                        try:
+                            # Validate inputs are numbers
+                            float(angles[0])
+                            float(angles[1])
+                            # self.passiveArm.emit(angles[1], angles[0])
+                        except ValueError:
+                            pass
             elif self.isStop == 1:
                 self.timer1.stop()
 

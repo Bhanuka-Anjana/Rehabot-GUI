@@ -20,7 +20,7 @@ Button {
     property color iconColorEntered: "#f9f9fc"
     property color textColor: "#b9bbbe"
     property color textColorEntered: "#f9f9fc"
-    property url iconPath: "../../images/svg_icons/icon_online.svg"
+    property url iconPath: "../../images/icon_online.svg"
     property int btnHeight: 32
     property bool enableDescription: false
     property string descriptionText: "Set here a description for this button"

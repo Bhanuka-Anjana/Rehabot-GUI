@@ -36,7 +36,7 @@ Item {
             y : 136
             width : 206
             height : 232
-            source : "../../images/virtual_arm/shoulder.jpg"
+            source : "../../images/shoulder.jpg"
             transformOrigin : Item.Top
             rotation : 30
             Image {
@@ -45,7 +45,7 @@ Item {
                 y : 165
                 width : 281
                 height : 284
-                source : "../../images/virtual_arm/elbow.png"
+                source : "../../images/elbow.png"
                 transformOrigin : Item.Top
                 rotation : 30
                 fillMode : Image.PreserveAspectFit

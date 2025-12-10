@@ -9,7 +9,7 @@ Button {
     property color colorDefault: "#1d1d2b"
     property color colorMouseOver: "#40405f"
     property color colorPressed: "#55aaff"
-    property url btnIconSource: "../../images/svg_images/help_icon.svg"
+    property url btnIconSource: "../../images/help_icon.svg"
     property string btnValue: "Test Value"
 
     QtObject{

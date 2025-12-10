@@ -9,7 +9,7 @@ Button {
     property color colorDefault: "#33334c"
     property color colorMouseOver: "#40405f"
     property color colorPressed: "#55aaff"
-    property url setIcon: "../../images/svg_images/pix_icon.svg"
+    property url setIcon: "../../images/pix_icon.svg"
     implicitWidth: 120
     implicitHeight: 95
 
