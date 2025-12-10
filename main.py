@@ -33,7 +33,8 @@ if __name__ == "__main__":
     app.setWindowIcon(QIcon("images/icon.ico"))
 
     # Load Initial Window
-    engine.load(os.path.join(os.path.dirname(__file__), "qml/welcomeScreen.qml"))
+    # engine.load(os.path.join(os.path.dirname(__file__), "qml/welcomeScreen.qml"))
+    engine.load(os.path.join(os.path.dirname(__file__), "qml/main.qml"))
 
     if not engine.rootObjects():
         sys.exit(-1)

@@ -13,7 +13,7 @@ import voicecomand.testing.model as model_functions
 import voicecomand.testing.prediction as predictions
 import voicecomand.training.arguments as arguments
 
-PORT = "COM5"
+PORT = "COM3"
 BAUD = 9600
 
 # ==================== Serial Communication =========================
@@ -99,11 +99,26 @@ class MainWindow(QObject):
         # print("Shoulder Min==", s_min)
         # print("Elbow Max==", e_max)
         # print("Elbow Min==", e_min)
-        print("Shoulder " + s_max + " " + s_min)
-        print("Elbow " + e_max + " " + e_min)
         self.isStop = 0
-        # self.sendSerial("Shoulder " + s_max + " " + s_min)
-        # self.sendSerial("Elbow " + e_max + " " + e_min)
+        
+        # Stop any existing timer
+        if hasattr(self, 'timer1') and self.timer1.isActive():
+            self.timer1.stop()
+        
+        # Send commands based on which joint is active
+        if int(s_max) > 0 or int(s_min) > 0:
+            print("Call 01")
+            self.sendSerial("Shoulder 90 0")
+            time.sleep(0.5)
+            self.sendSerial("Elbow 5 10")
+        elif int(e_max) > 0 or int(e_min) > 0:
+            print("Call 02")
+            self.sendSerial("Shoulder 0 0")
+            time.sleep(0.5)
+            self.sendSerial("Elbow 90 0")
+        
+        time.sleep(1)  # Add a delay of 1 second before starting the robot
+
         self.sendSerial("Start")
         self.startReadPassive()
 

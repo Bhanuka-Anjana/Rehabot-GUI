@@ -676,17 +676,17 @@ Window {
                         // });
                         var exeData=[
                             {
-                                name:"Exercise 1 - Elbow",
-                                s_max:0,
-                                s_min:0,
-                                e_max:90,
-                                e_min:0
-                            },
-                            {
-                                name:"Exercise 2 - Sholder",
+                                name:"Exercise 1 - Shoulder",
                                 s_max:90,
                                 s_min:0,
                                 e_max:0,
+                                e_min:0
+                            },
+                            {
+                                name:"Exercise 2 - Elbow",
+                                s_max:0,
+                                s_min:0,
+                                e_max:90,
                                 e_min:0
                             }
                         ]
@@ -819,17 +819,17 @@ Window {
                     // });
                     var exeData=[
                             {
-                                name:"Exercise 1 - Elbow",
-                                s_max:0,
-                                s_min:0,
-                                e_max:90,
-                                e_min:0
-                            },
-                            {
-                                name:"Exercise 2 - Sholder",
+                                name:"Exercise 1 - Shoulder",
                                 s_max:90,
                                 s_min:0,
                                 e_max:0,
+                                e_min:0
+                            },
+                            {
+                                name:"Exercise 2 - Elbow",
+                                s_max:0,
+                                s_min:0,
+                                e_max:90,
                                 e_min:0
                             }
                         ]
@@ -856,6 +856,7 @@ Window {
                 onClicked: {
                     console.log("Click Stop Button");
                     backend.btnStop()
+                    stackView.pop(null)
                 }
             }
 
